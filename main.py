@@ -38,9 +38,11 @@ async def get_world_covid():
 
 @app.get('/world/covid/{country}')
 async def get_covid_info_by_country(country: str):
+    json_path = f'data/covid/{country}.json'
     try:
-        data = await get_info_from_json(f'data/covid/{country}.json')
-    except FileNotFoundError:
+        data = await get_info_from_json(json_path)
+    except FileNotFoundError:   # TODO: исправить запись файла jsdklfjdsf.json
+        logger.info(f"Data for {country} not found, fetching new data.")
         new_data = await global_covid_object.parce_covid_by_country(country)
         await global_covid_object.write_to_json(f'data/covid/{country}.json', new_data)
         return new_data
@@ -49,11 +51,9 @@ async def get_covid_info_by_country(country: str):
         raise HTTPException(status_code=500, detail={'status': 'error', 'message': str(e)})
     else:
         if await check_next_day(data['last_updated_date']):
-            print('ДААААААА, АПДЕЙТ')
+            logger.info(f"Data for {country} is outdated, fetching new data.")
             new_data = await global_covid_object.parce_covid_by_country(country)
-            await global_covid_object.write_to_json(f'data/covid/{country}.json', new_data)
+            await global_covid_object.write_to_json(json_path, new_data)
             return new_data
         else:
-            print('НЕЕЕЕ,  НЕ АПДЕЙТ')
-
             return data

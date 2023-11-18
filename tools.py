@@ -66,33 +66,37 @@ class AsyncParser:
                     }
 
     async def parce_covid_by_country(self, country: str):
+        url = f'https://index.minfin.com.ua/reference/coronavirus/geography/{country}'
         async with aiohttp.ClientSession() as session:
-            html = await self.fetch(session, f'https://index.minfin.com.ua/reference/coronavirus/geography/{country}')
+            html = await self.fetch(session, url)
             soup = BeautifulSoup(html, 'html.parser')
+            try:
+                title_block = soup.find('caption').text
+                date_pattern = r'\d{2}\.\d{2}\.\d{4}'
 
-            title_block = soup.find('caption').text
-            date_pattern = r'\d{2}\.\d{2}\.\d{4}'
+                date_match = re.search(date_pattern, title_block)
+                if date_match:
+                    last_updated_date = date_match.group()
+                else:
+                    last_updated_date = 'no data'
 
-            date_match = re.search(date_pattern, title_block)
-            if date_match:
-                last_updated_date = date_match.group()
-            else:
-                last_updated_date = 'no data'
+                main_table_block = soup.find('table', 'line main-table')
 
-            main_table_block = soup.find('table', 'line main-table')
+                population = await self.parse_stat(main_table_block.find_all('strong')[0].text.replace('\xa0', ''))
+                total_infections = await self.parse_stat(
+                    main_table_block.find_all('strong')[1].text.replace('\xa0', ''))
+                deaths = await self.parse_stat(main_table_block.find_all('strong')[2].text.replace('\xa0', ''))
+                recovered = await self.parse_stat(main_table_block.find_all('strong')[3].text.replace('\xa0', ''))
+                sick_now = await self.parse_stat(main_table_block.find_all('strong')[4].text.replace('\xa0', ''))
 
-            population = await self.parse_stat(main_table_block.find_all('strong')[0].text.replace('\xa0', ''))
-            total_infections = await self.parse_stat(main_table_block.find_all('strong')[1].text.replace('\xa0', ''))
-            deaths = await self.parse_stat(main_table_block.find_all('strong')[2].text.replace('\xa0', ''))
-            recovered = await self.parse_stat(main_table_block.find_all('strong')[3].text.replace('\xa0', ''))
-            sick_now = await self.parse_stat(main_table_block.find_all('strong')[4].text.replace('\xa0', ''))
-
-            return {'last_updated_date': last_updated_date,
-                    'population': population,
-                    'total_infections': total_infections,
-                    'deaths': deaths,
-                    'recovered': recovered,
-                    'sick_now': sick_now}
+                return {'last_updated_date': last_updated_date,
+                        'population': population,
+                        'total_infections': total_infections,
+                        'deaths': deaths,
+                        'recovered': recovered,
+                        'sick_now': sick_now}
+            except AttributeError:
+                return {'status': 'unknown', 'message': 'error'}
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
