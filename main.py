@@ -40,6 +40,10 @@ async def get_world_covid():
 async def get_covid_info_by_country(country: str):
     try:
         data = await get_info_from_json(f'data/covid/{country}.json')
+    except FileNotFoundError:
+        new_data = await global_covid_object.parce_covid_by_country(country)
+        await global_covid_object.write_to_json(f'data/covid/{country}.json', new_data)
+        return new_data
     except Exception as e:
         logger.error(f"Error occurred: {e}\n\n", exc_info=True)
         raise HTTPException(status_code=500, detail={'status': 'error', 'message': str(e)})
