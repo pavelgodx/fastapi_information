@@ -1,8 +1,8 @@
 {
-    "last updated": "11/18/2023 13:59",
-    "covid cases": 697961377,
-    "covid death": 6939360,
-    "covid recovered": 669531101,
+    "last_updated": "11/18/2023 13:59",
+    "covid_cases": 697961377,
+    "covid_death": 6939360,
+    "covid_recovered": 669531101,
     "source": "worldometers.info",
     "icon": "cdn-icons-png.flaticon.com/512/2785/2785819.png"
 }

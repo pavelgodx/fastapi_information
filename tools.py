@@ -49,10 +49,10 @@ class AsyncParser:
             covid_death_amount = int(covid_cases[1].text.replace(',', '').strip())
             covid_recovered_amount = int(covid_cases[2].text.replace(',', '').strip())
 
-            return {'last updated': updated_info_time,
-                    'covid cases': covid_cases_amount,
-                    'covid death': covid_death_amount,
-                    'covid recovered': covid_recovered_amount,
+            return {'last_updated': updated_info_time,
+                    'covid_cases': covid_cases_amount,
+                    'covid_death': covid_death_amount,
+                    'covid_recovered': covid_recovered_amount,
                     'source': 'worldometers.info',
                     'icon': 'cdn-icons-png.flaticon.com/512/2785/2785819.png'
                     }
@@ -72,4 +72,10 @@ async def main():
     await global_covid_object.run()
 
 
-asyncio.run(main())
+# asyncio.run(main()) # TODO: доделать
+
+
+# ---------- OTHER TOOLS ---------- #
+async def get_info_from_json(filename: Union[str, Path]):
+    with open(filename, 'r', encoding='utf-8') as file:
+        return json.load(file)
