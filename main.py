@@ -3,7 +3,7 @@ import logging
 from fastapi import FastAPI, HTTPException
 
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
-from settings import GLOBAL_COVID_TOPIC
+from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC
 from models import WorldCovidModel
 
 logging.basicConfig(level=logging.INFO)
@@ -36,7 +36,7 @@ async def get_world_covid():
             return data
 
 
-@app.get('/world/covid/{country}')
+@app.get('/world/covid/{country}', description=COUNTRY_COVID_TOPIC)
 async def get_covid_info_by_country(country: str):
     json_path = f'data/covid/{country}.json'
     try:
