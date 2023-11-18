@@ -6,7 +6,6 @@ from tools import get_info_from_json, check_elapsed_time, AsyncParser
 from settings import GLOBAL_COVID_TOPIC
 from models import WorldCovidModel
 
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 handler = logging.FileHandler('main_file.log')
@@ -35,3 +34,8 @@ async def get_world_covid():
             return new_data
         else:
             return data
+
+
+@app.get('/world/covid/{country}')
+async def get_covid_info_by_country(country: str):
+    return await global_covid_object.parce_covid_by_country('usa')

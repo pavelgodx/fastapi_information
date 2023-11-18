@@ -16,7 +16,7 @@ class AsyncParser:
 
         self.template_date = "%m/%d/%Y %H:%M"
 
-    def get_config (self) -> Dict[str, str]:
+    def get_config(self) -> Dict[str, str]:
         """
         Generating and returning dictionary of configuration for HTTP request
 
@@ -25,9 +25,9 @@ class AsyncParser:
         """
         return {'user-agent': self.ua.random}
 
-    async def fetch(self, session: aiohttp.ClientSession) -> str:
+    async def fetch(self, session: aiohttp.ClientSession, url: str) -> str:
         headers = self.get_config()
-        async with session.get(self.url, headers=headers) as response:
+        async with session.get(url, headers=headers) as response:
             return await response.text()
 
     async def format_date(self, value: str) -> str:
@@ -37,7 +37,7 @@ class AsyncParser:
 
     async def parse_covid_global(self) -> Dict[str, Union[str, int]]:
         async with aiohttp.ClientSession() as session:
-            html = await self.fetch(session)
+            html = await self.fetch(session, 'https://www.worldometers.info/coronavirus/')
             soup = BeautifulSoup(html, 'html.parser')
 
             update_info_div = soup.find('div', string=lambda x: x and "Last updated:" in x).text.replace(' GMT', '')[
@@ -57,6 +57,16 @@ class AsyncParser:
                     'source': 'worldometers.info',
                     'icon': 'cdn-icons-png.flaticon.com/512/2785/2785819.png'
                     }
+
+    async def parce_covid_by_country(self, country: str):
+        async with aiohttp.ClientSession() as session:
+            html = await self.fetch(session, f'https://index.minfin.com.ua/reference/coronavirus/geography/{country}')
+            soup = BeautifulSoup(html, 'html.parser')
+
+            main_div_block = soup.find('table', 'line main-table')
+            print(main_div_block)
+
+            return 'kek'
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
