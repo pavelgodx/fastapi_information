@@ -50,7 +50,7 @@ async def get_covid_info_by_country(country: str):
         logger.error(f"Error occurred: {e}\n\n", exc_info=True)
         raise HTTPException(status_code=500, detail={'status': 'error', 'message': str(e)})
     else:
-        if await check_next_day(data['last_updated_date']):
+        if await check_next_day(data['last_updated_date']): # TODO: здесь также траблы
             logger.info(f"Data for {country} is outdated, fetching new data.")
             new_data = await global_covid_object.parce_covid_by_country(country)
             await global_covid_object.write_to_json(json_path, new_data)
