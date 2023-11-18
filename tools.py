@@ -10,7 +10,6 @@ from datetime import datetime, timedelta
 import re
 
 
-
 class AsyncParser:
     def __init__(self, url: str):
         self.url = url
@@ -36,6 +35,13 @@ class AsyncParser:
         date_obj = datetime.strptime(value, "%B %d, %Y, %H:%M")
         formatted_date = date_obj.strftime(self.template_date)
         return formatted_date
+
+    async def parse_stat(self, text: str):
+        try:
+            text = int(text)
+            return text
+        except ValueError:
+            return 'no data'
 
     async def parse_covid_global(self) -> Dict[str, Union[str, int]]:
         async with aiohttp.ClientSession() as session:
@@ -75,11 +81,11 @@ class AsyncParser:
 
             main_table_block = soup.find('table', 'line main-table')
 
-            population = int(main_table_block.find_all('strong')[0].text.replace('\xa0', ''))
-            total_infections = int(main_table_block.find_all('strong')[1].text.replace('\xa0', ''))
-            deaths = int(main_table_block.find_all('strong')[2].text.replace('\xa0', ''))
-            recovered = int(main_table_block.find_all('strong')[3].text.replace('\xa0', ''))
-            sick_now = int(main_table_block.find_all('strong')[4].text.replace('\xa0', ''))
+            population = await self.parse_stat(main_table_block.find_all('strong')[0].text.replace('\xa0', ''))
+            total_infections = await self.parse_stat(main_table_block.find_all('strong')[1].text.replace('\xa0', ''))
+            deaths = await self.parse_stat(main_table_block.find_all('strong')[2].text.replace('\xa0', ''))
+            recovered = await self.parse_stat(main_table_block.find_all('strong')[3].text.replace('\xa0', ''))
+            sick_now = await self.parse_stat(main_table_block.find_all('strong')[4].text.replace('\xa0', ''))
 
             return {'last_updated_date': last_updated_date,
                     'population': population,
@@ -119,3 +125,10 @@ async def check_elapsed_time(last_updated: str):
     time_difference = current_time - last_updated
 
     return True if time_difference > timedelta(hours=3) else False
+
+
+async def check_next_day(last_updated_str: str):
+    last_updated = datetime.strptime(last_updated_str, '%d.%m.%Y').date()
+    current_date = datetime.now().date()
+
+    return current_date > last_updated

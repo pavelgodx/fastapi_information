@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI, HTTPException
 
-from tools import get_info_from_json, check_elapsed_time, AsyncParser
+from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
 from settings import GLOBAL_COVID_TOPIC
 from models import WorldCovidModel
 
@@ -38,4 +38,18 @@ async def get_world_covid():
 
 @app.get('/world/covid/{country}')
 async def get_covid_info_by_country(country: str):
-    return await global_covid_object.parce_covid_by_country('usa')
+    try:
+        data = await get_info_from_json(f'data/covid/{country}.json')
+    except Exception as e:
+        logger.error(f"Error occurred: {e}\n\n", exc_info=True)
+        raise HTTPException(status_code=500, detail={'status': 'error', 'message': str(e)})
+    else:
+        if await check_next_day(data['last_updated_date']):
+            print('ДААААААА, АПДЕЙТ')
+            new_data = await global_covid_object.parce_covid_by_country(country)
+            await global_covid_object.write_to_json(f'data/covid/{country}.json', new_data)
+            return new_data
+        else:
+            print('НЕЕЕЕ,  НЕ АПДЕЙТ')
+
+            return data
