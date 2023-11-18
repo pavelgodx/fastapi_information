@@ -107,7 +107,7 @@ class AsyncParser:
         await self.write_to_json(filename='data/covid/general_info.json', data=data_global_covid)
 
 
-async def main():
+async def main():   # TODO: убрать
     global_covid_url = 'https://www.worldometers.info/coronavirus/'
     global_covid_object = AsyncParser(global_covid_url)
     await global_covid_object.run()

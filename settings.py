@@ -12,3 +12,8 @@ We receive information about COVID-19 for the specified country. Supported count
 - Russia
 
 """
+
+MAIN_DESCRIPTION = ('This API will help you obtain up-to-date information from various sources. '
+                    'Repository in [GitHub](https://github.com/pavelgodx/fastapi_information). '
+                    '\n\nAlso for feedback: [telegram](https://t.me/pavelgodx)'
+                    '\n\n![lol](https://media.tenor.com/tWD3GjJcoHgAAAAC/spongebob-computer.gif)')

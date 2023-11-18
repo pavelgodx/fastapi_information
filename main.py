@@ -3,7 +3,7 @@ import logging
 from fastapi import FastAPI, HTTPException
 
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
-from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC
+from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC, MAIN_DESCRIPTION
 from models import WorldCovidModel
 
 logging.basicConfig(level=logging.INFO)
@@ -14,7 +14,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-app = FastAPI()
+app = FastAPI(title='PashtetAPI', version='2.2.8', description=MAIN_DESCRIPTION)
 
 global_covid_url = 'https://www.worldometers.info/coronavirus/'
 global_covid_object = AsyncParser(global_covid_url)
