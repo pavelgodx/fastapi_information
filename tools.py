@@ -7,6 +7,8 @@ from datetime import datetime
 from pathlib import Path
 import json
 from datetime import datetime, timedelta
+import re
+
 
 
 class AsyncParser:
@@ -54,7 +56,6 @@ class AsyncParser:
                     'covid_cases': covid_cases_amount,
                     'covid_death': covid_death_amount,
                     'covid_recovered': covid_recovered_amount,
-                    'source': 'worldometers.info',
                     'icon': 'cdn-icons-png.flaticon.com/512/2785/2785819.png'
                     }
 
@@ -63,10 +64,29 @@ class AsyncParser:
             html = await self.fetch(session, f'https://index.minfin.com.ua/reference/coronavirus/geography/{country}')
             soup = BeautifulSoup(html, 'html.parser')
 
-            main_div_block = soup.find('table', 'line main-table')
-            print(main_div_block)
+            title_block = soup.find('caption').text
+            date_pattern = r'\d{2}\.\d{2}\.\d{4}'
 
-            return 'kek'
+            date_match = re.search(date_pattern, title_block)
+            if date_match:
+                last_updated_date = date_match.group()
+            else:
+                last_updated_date = 'no data'
+
+            main_table_block = soup.find('table', 'line main-table')
+
+            population = int(main_table_block.find_all('strong')[0].text.replace('\xa0', ''))
+            total_infections = int(main_table_block.find_all('strong')[1].text.replace('\xa0', ''))
+            deaths = int(main_table_block.find_all('strong')[2].text.replace('\xa0', ''))
+            recovered = int(main_table_block.find_all('strong')[3].text.replace('\xa0', ''))
+            sick_now = int(main_table_block.find_all('strong')[4].text.replace('\xa0', ''))
+
+            return {'last_updated_date': last_updated_date,
+                    'population': population,
+                    'total_infections': total_infections,
+                    'deaths': deaths,
+                    'recovered': recovered,
+                    'sick_now': sick_now}
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
