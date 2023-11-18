@@ -1,11 +1,11 @@
-from typing import List
+import logging
+
 from fastapi import FastAPI, HTTPException
+
 from tools import get_info_from_json, check_elapsed_time, AsyncParser
 from settings import GLOBAL_COVID_TOPIC
 from models import WorldCovidModel
 
-from fastapi import FastAPI, Request, Header
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
