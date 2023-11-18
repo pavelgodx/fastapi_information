@@ -4,6 +4,8 @@ import asyncio
 from typing import Dict, Union
 from fake_useragent import UserAgent
 from datetime import datetime
+from pathlib import Path
+import json
 
 
 class AsyncParser:
@@ -29,7 +31,7 @@ class AsyncParser:
 
     async def format_date(self, value: str) -> str:
         date_obj = datetime.strptime(value, "%B %d, %Y, %H:%M")
-        formatted_date = date_obj.strftime("%m/%d/%Y %H:%M")
+        formatted_date = date_obj.strftime(self.template_date)
         return formatted_date
 
     async def parse_covid_global(self) -> Dict[str, Union[str, int]]:
@@ -55,9 +57,13 @@ class AsyncParser:
                     'icon': 'cdn-icons-png.flaticon.com/512/2785/2785819.png'
                     }
 
+    async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
+        with open(filename, 'w', encoding='utf-8') as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+
     async def run(self) -> None:
-        j = await self.parse_covid_global()
-        print(j)
+        data_global_covid = await self.parse_covid_global()
+        await self.write_to_json(filename='data/covid/general_info.json', data=data_global_covid)
 
 
 async def main():
