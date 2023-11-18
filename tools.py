@@ -6,6 +6,7 @@ from fake_useragent import UserAgent
 from datetime import datetime
 from pathlib import Path
 import json
+from datetime import datetime, timedelta
 
 
 class AsyncParser:
@@ -15,7 +16,7 @@ class AsyncParser:
 
         self.template_date = "%m/%d/%Y %H:%M"
 
-    def get_config(self) -> Dict[str, str]:
+    def get_config (self) -> Dict[str, str]:
         """
         Generating and returning dictionary of configuration for HTTP request
 
@@ -79,3 +80,12 @@ async def main():
 async def get_info_from_json(filename: Union[str, Path]):
     with open(filename, 'r', encoding='utf-8') as file:
         return json.load(file)
+
+
+async def check_elapsed_time(last_updated: str):
+    last_updated = datetime.strptime(last_updated, '%m/%d/%Y %H:%M')
+    current_time = datetime.now()
+
+    time_difference = current_time - last_updated
+
+    return True if time_difference > timedelta(hours=3) else False
