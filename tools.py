@@ -89,7 +89,8 @@ class AsyncParser:
                 recovered = await self.parse_stat(main_table_block.find_all('strong')[3].text.replace('\xa0', ''))
                 sick_now = await self.parse_stat(main_table_block.find_all('strong')[4].text.replace('\xa0', ''))
 
-                return {'last_updated_date': last_updated_date,
+                return {'status': 200,
+                        'last_updated_date': last_updated_date,
                         'population': population,
                         'total_infections': total_infections,
                         'deaths': deaths,
