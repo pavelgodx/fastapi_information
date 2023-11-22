@@ -5,6 +5,7 @@ from fastapi import FastAPI, HTTPException
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
 from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC, MAIN_DESCRIPTION
 from models import WorldCovidModel
+
 #
 # logging.basicConfig(level=logging.INFO)
 # logger = logging.getLogger(__name__)
@@ -24,6 +25,11 @@ global_covid_object = AsyncParser(global_covid_url)
 async def get_world_covid():
     try:
         data = await get_info_from_json('data/covid/general_info.json')
+    except FileNotFoundError:
+        new_data = await global_covid_object.parse_covid_global()
+        await global_covid_object.write_to_json('data/covid/general_info.json', new_data)
+        data = await get_info_from_json('data/covid/general_info.json')
+        return data
     except Exception as e:
         raise HTTPException(status_code=500, detail={'status': 'error', 'message': str(e)})
     else:
@@ -50,7 +56,7 @@ async def get_covid_info_by_country(country: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail={'status': 'error', 'message': str(e)})
     else:
-        if await check_next_day(data['last_updated_date']): # TODO: здесь также траблы
+        if await check_next_day(data['last_updated_date']):  # TODO: здесь также траблы
             new_data = await global_covid_object.parce_covid_by_country(country)
             await global_covid_object.write_to_json(json_path, new_data)
             return new_data
