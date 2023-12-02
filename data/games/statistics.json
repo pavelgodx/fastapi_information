@@ -1,0 +1,503 @@
+{
+    "last_updated": "12/02/2023 17:36",
+    "Counter-Strike 2": {
+        "current_players": "1092742",
+        "peak24": "1216605",
+        "all_time_peak": "1818773"
+    },
+    "Dota 2": {
+        "current_players": "689847",
+        "peak24": "694282",
+        "all_time_peak": "1295114"
+    },
+    "PUBG: BATTLEGROUNDS": {
+        "current_players": "389773",
+        "peak24": "461972",
+        "all_time_peak": "3257248"
+    },
+    "Apex Legends": {
+        "current_players": "273744",
+        "peak24": "337872",
+        "all_time_peak": "624473"
+    },
+    "NARAKA: BLADEPOINT": {
+        "current_players": "190732",
+        "peak24": "258285",
+        "all_time_peak": "295419"
+    },
+    "Grand Theft Auto V": {
+        "current_players": "155496",
+        "peak24": "166617",
+        "all_time_peak": "364548"
+    },
+    "Source SDK Base 2007": {
+        "current_players": "136981",
+        "peak24": "147237",
+        "all_time_peak": "213168"
+    },
+    "Baldur's Gate 3": {
+        "current_players": "135963",
+        "peak24": "135963",
+        "all_time_peak": "875343"
+    },
+    "Wallpaper Engine": {
+        "current_players": "121626",
+        "peak24": "131842",
+        "all_time_peak": "150375"
+    },
+    "Call of Duty®": {
+        "current_players": "111731",
+        "peak24": "113709",
+        "all_time_peak": "491670"
+    },
+    "Rust": {
+        "current_players": "105561",
+        "peak24": "105561",
+        "all_time_peak": "245243"
+    },
+    "Team Fortress 2": {
+        "current_players": "98190",
+        "peak24": "101601",
+        "all_time_peak": "253997"
+    },
+    "War Thunder": {
+        "current_players": "86295",
+        "peak24": "88114",
+        "all_time_peak": "115429"
+    },
+    "Lethal Company": {
+        "current_players": "82743",
+        "peak24": "215134",
+        "all_time_peak": "215134"
+    },
+    "Football Manager 2024": {
+        "current_players": "78682",
+        "peak24": "78682",
+        "all_time_peak": "86900"
+    },
+    "Battlefield™ V": {
+        "current_players": "73648",
+        "peak24": "100436",
+        "all_time_peak": "116104"
+    },
+    "Destiny 2": {
+        "current_players": "73187",
+        "peak24": "103704",
+        "all_time_peak": "316750"
+    },
+    "Sid Meier's Civilization VI": {
+        "current_players": "68649",
+        "peak24": "70118",
+        "all_time_peak": "162657"
+    },
+    "Red Dead Redemption 2": {
+        "current_players": "67249",
+        "peak24": "73681",
+        "all_time_peak": "77655"
+    },
+    "Warframe": {
+        "current_players": "63559",
+        "peak24": "66719",
+        "all_time_peak": "189837"
+    },
+    "Lost Ark": {
+        "current_players": "60275",
+        "peak24": "77420",
+        "all_time_peak": "1325305"
+    },
+    "EA SPORTS FC™ 24": {
+        "current_players": "58518",
+        "peak24": "61992",
+        "all_time_peak": "82287"
+    },
+    "Unturned": {
+        "current_players": "58187",
+        "peak24": "58389",
+        "all_time_peak": "112703"
+    },
+    "Cyberpunk 2077": {
+        "current_players": "57726",
+        "peak24": "58809",
+        "all_time_peak": "1054388"
+    },
+    "Terraria": {
+        "current_players": "55447",
+        "peak24": "57716",
+        "all_time_peak": "489886"
+    },
+    "Spacewar": {
+        "current_players": "55422",
+        "peak24": "55422",
+        "all_time_peak": "78193"
+    },
+    "Hearts of Iron IV": {
+        "current_players": "55373",
+        "peak24": "56316",
+        "all_time_peak": "78108"
+    },
+    "DayZ": {
+        "current_players": "53963",
+        "peak24": "54016",
+        "all_time_peak": "69449"
+    },
+    "Tom Clancy's Rainbow Six Siege": {
+        "current_players": "52940",
+        "peak24": "55947",
+        "all_time_peak": "201053"
+    },
+    "Don't Starve Together": {
+        "current_players": "52578",
+        "peak24": "61697",
+        "all_time_peak": "115925"
+    },
+    "7 Days to Die": {
+        "current_players": "51912",
+        "peak24": "53169",
+        "all_time_peak": "96827"
+    },
+    "Euro Truck Simulator 2": {
+        "current_players": "51650",
+        "peak24": "51664",
+        "all_time_peak": "69754"
+    },
+    "ARK: Survival Ascended": {
+        "current_players": "49499",
+        "peak24": "49499",
+        "all_time_peak": "98047"
+    },
+    "Dead by Daylight": {
+        "current_players": "49049",
+        "peak24": "50614",
+        "all_time_peak": "105093"
+    },
+    "Left 4 Dead 2": {
+        "current_players": "48266",
+        "peak24": "55077",
+        "all_time_peak": "162399"
+    },
+    "Monster Hunter: World": {
+        "current_players": "45588",
+        "peak24": "49685",
+        "all_time_peak": "334684"
+    },
+    "ARK: Survival Evolved": {
+        "current_players": "44842",
+        "peak24": "45423",
+        "all_time_peak": "248405"
+    },
+    "Stardew Valley": {
+        "current_players": "44461",
+        "peak24": "45306",
+        "all_time_peak": "94879"
+    },
+    "ELDEN RING": {
+        "current_players": "40514",
+        "peak24": "42363",
+        "all_time_peak": "953426"
+    },
+    "Battlefield™ 2042": {
+        "current_players": "40460",
+        "peak24": "48863",
+        "all_time_peak": "107376"
+    },
+    "Project Zomboid": {
+        "current_players": "39944",
+        "peak24": "39944",
+        "all_time_peak": "65505"
+    },
+    "tModLoader": {
+        "current_players": "39767",
+        "peak24": "41407",
+        "all_time_peak": "46667"
+    },
+    "The Sims™ 4": {
+        "current_players": "37547",
+        "peak24": "37547",
+        "all_time_peak": "96328"
+    },
+    "Farming Simulator 22": {
+        "current_players": "36217",
+        "peak24": "37485",
+        "all_time_peak": "105636"
+    },
+    "PAYDAY 2": {
+        "current_players": "34840",
+        "peak24": "46280",
+        "all_time_peak": "247709"
+    },
+    "Valheim": {
+        "current_players": "33646",
+        "peak24": "33646",
+        "all_time_peak": "502387"
+    },
+    "Overwatch® 2": {
+        "current_players": "32210",
+        "peak24": "34707",
+        "all_time_peak": "75608"
+    },
+    "Garry's Mod": {
+        "current_players": "30572",
+        "peak24": "30572",
+        "all_time_peak": "73863"
+    },
+    "BattleBit Remastered": {
+        "current_players": "29927",
+        "peak24": "29927",
+        "all_time_peak": "87323"
+    },
+    "Mount & Blade II: Bannerlord": {
+        "current_players": "29262",
+        "peak24": "29677",
+        "all_time_peak": "248216"
+    },
+    "VRChat": {
+        "current_players": "27726",
+        "peak24": "35021",
+        "all_time_peak": "46814"
+    },
+    "MIR4": {
+        "current_players": "27393",
+        "peak24": "28237",
+        "all_time_peak": "97173"
+    },
+    "RimWorld": {
+        "current_players": "27118",
+        "peak24": "27118",
+        "all_time_peak": "60789"
+    },
+    "The Binding of Isaac: Rebirth": {
+        "current_players": "26852",
+        "peak24": "27518",
+        "all_time_peak": "70701"
+    },
+    "Age of Empires IV: Anniversary Edition": {
+        "current_players": "26667",
+        "peak24": "28100",
+        "all_time_peak": "73928"
+    },
+    "Total War: WARHAMMER III": {
+        "current_players": "26365",
+        "peak24": "26365",
+        "all_time_peak": "166754"
+    },
+    "Age of Empires II: Definitive Edition": {
+        "current_players": "26207",
+        "peak24": "26348",
+        "all_time_peak": "38725"
+    },
+    "The Elder Scrolls V: Skyrim Special Edition": {
+        "current_players": "26183",
+        "peak24": "26183",
+        "all_time_peak": "69906"
+    },
+    "Yu-Gi-Oh! Master Duel": {
+        "current_players": "25810",
+        "peak24": "28622",
+        "all_time_peak": "262689"
+    },
+    "Satisfactory": {
+        "current_players": "25730",
+        "peak24": "25730",
+        "all_time_peak": "34238"
+    },
+    "Street Fighter™ 6": {
+        "current_players": "25573",
+        "peak24": "29451",
+        "all_time_peak": "70573"
+    },
+    "Phasmophobia": {
+        "current_players": "24862",
+        "peak24": "25516",
+        "all_time_peak": "112717"
+    },
+    "Europa Universalis IV": {
+        "current_players": "24355",
+        "peak24": "24388",
+        "all_time_peak": "48165"
+    },
+    "New World": {
+        "current_players": "24013",
+        "peak24": "26087",
+        "all_time_peak": "913634"
+    },
+    "Hunt: Showdown": {
+        "current_players": "23926",
+        "peak24": "24597",
+        "all_time_peak": "45091"
+    },
+    "Battlefield 1 ™": {
+        "current_players": "23623",
+        "peak24": "31985",
+        "all_time_peak": "53714"
+    },
+    "The Witcher 3: Wild Hunt": {
+        "current_players": "23451",
+        "peak24": "24593",
+        "all_time_peak": "103329"
+    },
+    "Black Desert": {
+        "current_players": "23154",
+        "peak24": "23154",
+        "all_time_peak": "60395"
+    },
+    "Goose Goose Duck": {
+        "current_players": "22701",
+        "peak24": "25520",
+        "all_time_peak": "702845"
+    },
+    "Football Manager 2023": {
+        "current_players": "22553",
+        "peak24": "22796",
+        "all_time_peak": "83715"
+    },
+    "Starfield": {
+        "current_players": "20752",
+        "peak24": "20752",
+        "all_time_peak": "330723"
+    },
+    "Crusader Kings III": {
+        "current_players": "20749",
+        "peak24": "20749",
+        "all_time_peak": "98872"
+    },
+    "Cities: Skylines II": {
+        "current_players": "20679",
+        "peak24": "20839",
+        "all_time_peak": "104697"
+    },
+    "SCUM": {
+        "current_players": "20234",
+        "peak24": "21189",
+        "all_time_peak": "68322"
+    },
+    "Rocket League": {
+        "current_players": "20185",
+        "peak24": "34361",
+        "all_time_peak": "147632"
+    },
+    "Sid Meier's Civilization V": {
+        "current_players": "20084",
+        "peak24": "20084",
+        "all_time_peak": "91363"
+    },
+    "MONSTER HUNTER RISE": {
+        "current_players": "19939",
+        "peak24": "21983",
+        "all_time_peak": "231360"
+    },
+    "Forza Horizon 5": {
+        "current_players": "19911",
+        "peak24": "21786",
+        "all_time_peak": "81096"
+    },
+    "The Forest": {
+        "current_players": "19708",
+        "peak24": "21687",
+        "all_time_peak": "78097"
+    },
+    "VPet": {
+        "current_players": "19671",
+        "peak24": "25584",
+        "all_time_peak": "85551"
+    },
+    "Stellaris": {
+        "current_players": "19597",
+        "peak24": "19896",
+        "all_time_peak": "68602"
+    },
+    "雀魂麻将(MahjongSoul)": {
+        "current_players": "19256",
+        "peak24": "21695",
+        "all_time_peak": "35277"
+    },
+    "FINAL FANTASY XIV Online": {
+        "current_players": "19008",
+        "peak24": "23648",
+        "all_time_peak": "95150"
+    },
+    "It Takes Two": {
+        "current_players": "18689",
+        "peak24": "24660",
+        "all_time_peak": "32685"
+    },
+    "Farlight 84": {
+        "current_players": "18642",
+        "peak24": "19813",
+        "all_time_peak": "41396"
+    },
+    "Diablo® IV": {
+        "current_players": "18628",
+        "peak24": "19743",
+        "all_time_peak": "28836"
+    },
+    "Raft": {
+        "current_players": "18150",
+        "peak24": "18753",
+        "all_time_peak": "101096"
+    },
+    "Deep Rock Galactic": {
+        "current_players": "18143",
+        "peak24": "18669",
+        "all_time_peak": "46687"
+    },
+    "Geometry Dash": {
+        "current_players": "18140",
+        "peak24": "18140",
+        "all_time_peak": "33681"
+    },
+    "Fallout 4": {
+        "current_players": "18021",
+        "peak24": "18021",
+        "all_time_peak": "472962"
+    },
+    "Factorio": {
+        "current_players": "17711",
+        "peak24": "17711",
+        "all_time_peak": "34700"
+    },
+    "Brawlhalla": {
+        "current_players": "17584",
+        "peak24": "19042",
+        "all_time_peak": "34816"
+    },
+    "World of Tanks Blitz": {
+        "current_players": "17523",
+        "peak24": "17694",
+        "all_time_peak": "56669"
+    },
+    "Sea of Thieves": {
+        "current_players": "17444",
+        "peak24": "17444",
+        "all_time_peak": "66906"
+    },
+    "Hogwarts Legacy": {
+        "current_players": "17085",
+        "peak24": "17085",
+        "all_time_peak": "879308"
+    },
+    "EA SPORTS™ FIFA 23": {
+        "current_players": "16867",
+        "peak24": "17127",
+        "all_time_peak": "110878"
+    },
+    "The Elder Scrolls Online": {
+        "current_players": "16815",
+        "peak24": "16815",
+        "all_time_peak": "49234"
+    },
+    "Squad": {
+        "current_players": "16796",
+        "peak24": "18247",
+        "all_time_peak": "26104"
+    },
+    "Soundpad": {
+        "current_players": "16634",
+        "peak24": "17238",
+        "all_time_peak": "21920"
+    },
+    "BeamNG.drive": {
+        "current_players": "16314",
+        "peak24": "16314",
+        "all_time_peak": "23290"
+    }
+}
