@@ -17,3 +17,12 @@ MAIN_DESCRIPTION = ('This API will help you obtain up-to-date information from v
                     'Repository in [GitHub](https://github.com/pavelgodx/fastapi_information). '
                     '\n\nAlso for feedback: [telegram](https://t.me/pavelgodx)'
                     '\n\n![lol](https://media.tenor.com/tWD3GjJcoHgAAAAC/spongebob-computer.gif)')
+
+TAGS = [
+    ['Covid'],
+    ['Games'],
+]
+
+SUMMARY = ('Get world COVID info',
+           'Get COVID info by country',
+           'Get games statistic')
