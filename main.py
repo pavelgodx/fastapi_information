@@ -49,7 +49,9 @@ async def get_covid_info_by_country(country: str):
     else:
         if await check_next_day(data['last_updated_date']):  # TODO: здесь также траблы
             new_data = await tool_object.parce_covid_by_country(country)
+            if new_data['status'] != 200:
+                return new_data
             await tool_object.write_to_json(json_path, new_data)
             return new_data
-        else:
-            return data
+        # else:
+        #     return data

@@ -72,6 +72,7 @@ class AsyncParser:
         async with aiohttp.ClientSession() as session:
             html = await self.fetch(session, url)
             soup = BeautifulSoup(html, 'html.parser')
+
             try:
                 title_block = soup.find('caption').text
                 date_pattern = r'\d{1,2}\.\d{1,2}\.\d{4}'
@@ -99,7 +100,7 @@ class AsyncParser:
                         'recovered': recovered,
                         'sick_now': sick_now}
             except AttributeError:
-                return {'status': 'unknown', 'message': 'error'}
+                return {'status': 'unknown', 'message': 'Error, perhaps the country is missing', 'last_updated_date': 'no data'}
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
