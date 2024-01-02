@@ -6,15 +6,6 @@ from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_nex
 from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC, MAIN_DESCRIPTION, TAGS, SUMMARY
 from models import WorldCovidModel
 
-#
-# logging.basicConfig(level=logging.INFO)
-# logger = logging.getLogger(__name__)
-# handler = logging.FileHandler('main_file.log')
-# handler.setLevel(logging.INFO)
-# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# handler.setFormatter(formatter)
-# logger.addHandler(handler)
-
 app = FastAPI(title='PashtetAPI', version='2.2.8', description=MAIN_DESCRIPTION)
 
 global_covid_url = 'https://www.worldometers.info/coronavirus/'
@@ -49,7 +40,6 @@ async def get_covid_info_by_country(country: str):
         data = await get_info_from_json(json_path)
     except FileNotFoundError:
         new_data = await tool_object.parce_covid_by_country(country)
-
         if new_data['status'] != 200:
             return new_data
         await tool_object.write_to_json(f'data/covid/{country}.json', new_data)
@@ -63,8 +53,3 @@ async def get_covid_info_by_country(country: str):
             return new_data
         else:
             return data
-
-
-@app.get('/games/statistics', tags=TAGS[1], summary=SUMMARY[2])
-async def get_games_statistics():
-    await tool_object.parce_games_statistic()

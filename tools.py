@@ -11,17 +11,6 @@ import json
 from datetime import datetime, timedelta
 import re
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-# from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-
-# chrome_options = Options()
-# chrome_options.add_argument("blink-settings=imagesEnabled=false")
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
-
 
 class AsyncParser:
     def __init__(self, url: str):
@@ -85,7 +74,7 @@ class AsyncParser:
             soup = BeautifulSoup(html, 'html.parser')
             try:
                 title_block = soup.find('caption').text
-                date_pattern = r'\d{2}\.\d{2}\.\d{4}'
+                date_pattern = r'\d{1,2}\.\d{1,2}\.\d{4}'
 
                 date_match = re.search(date_pattern, title_block)
                 if date_match:
@@ -111,31 +100,6 @@ class AsyncParser:
                         'sick_now': sick_now}
             except AttributeError:
                 return {'status': 'unknown', 'message': 'error'}
-
-    async def parce_games_statistic(self):  # TODO: обработать исключения
-        url = f'https://steamdb.info/charts/'
-        data_games = {}
-
-        driver.get(url)
-        time.sleep(3)   # делитнуть
-        info = driver.find_element(By.CLASS_NAME, "dataTable_table_wrap").text
-        lines = info.split('\n')[1:]
-        current_datetime = datetime.now()
-        formatted_datetime = current_datetime.strftime("%m/%d/%Y %H:%M")
-
-        data_games['last_updated'] = formatted_datetime
-        for el in lines:
-            parts = el.split()
-            name = ' '.join(parts[1:-4])
-            all_time_peak = parts[-2].replace(',', '')
-            peak24 = parts[-3].replace(',', '')
-            current = parts[-4].replace(',', '')
-
-            data_games[name] = {'current_players': current, 'peak24': peak24, 'all_time_peak': all_time_peak}
-
-        await self.write_to_json('data/games/statistics.json', data_games)
-
-        driver.close()
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
@@ -171,7 +135,9 @@ async def check_elapsed_time(last_updated: str):
 
 
 async def check_next_day(last_updated_str: str):
-    last_updated = datetime.strptime(last_updated_str, '%d.%m.%Y').date()
-    current_date = datetime.now().date()
-
-    return current_date > last_updated
+    try:
+        last_updated = datetime.strptime(last_updated_str, '%d.%m.%Y').date()
+        current_date = datetime.now().date()
+        return current_date > last_updated
+    except ValueError as e:
+        return True
