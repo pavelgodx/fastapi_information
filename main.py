@@ -3,7 +3,8 @@ import logging
 from fastapi import FastAPI, HTTPException
 
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
-from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC, MAIN_DESCRIPTION, TAGS, SUMMARY
+from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC, MAIN_DESCRIPTION, TAGS, SUMMARY, GET_CURRENCY_TOPIC, \
+    CURRENCY_LIST_TOPIC
 from models import WorldCovidModel
 
 app = FastAPI(title='PashtetAPI', version='2.2.8', description=MAIN_DESCRIPTION)
@@ -55,3 +56,15 @@ async def get_covid_info_by_country(country: str):
             return new_data
         # else:
         #     return data
+
+
+@app.get('/currency/list', description=CURRENCY_LIST_TOPIC, tags=TAGS[1], summary=SUMMARY[2])
+async def get_list_currencies():
+    return 'none'
+
+
+@app.get('/currency/{first_currency}/{second_currency}', description=GET_CURRENCY_TOPIC, tags=TAGS[1],
+         summary=SUMMARY[3])
+async def get_current_currency(first_currency: str, second_currency: str):
+    new_data = await tool_object.parce_current_currency(first_currency, second_currency)
+    return new_data

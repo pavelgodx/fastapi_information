@@ -13,6 +13,15 @@ We receive information about COVID-19 for the specified country. Supported count
 
 """
 
+CURRENCY_LIST_TOPIC = """
+Получи весь список данных
+"""
+
+GET_CURRENCY_TOPIC = """
+Ееее бой!
+"""
+
+
 MAIN_DESCRIPTION = ('This API will help you obtain up-to-date information from various sources. '
                     'Repository in [GitHub](https://github.com/pavelgodx/fastapi_information). '
                     '\n\nAlso for feedback: [telegram](https://t.me/pavelgodx)'
@@ -20,9 +29,10 @@ MAIN_DESCRIPTION = ('This API will help you obtain up-to-date information from v
 
 TAGS = [
     ['Covid'],
-    ['Games'],
+    ['Currency'],
 ]
 
 SUMMARY = ('Get world COVID info',
            'Get COVID info by country',
-           'Get games statistic')
+           'Get list currencies',
+           'Get current exchange rate')

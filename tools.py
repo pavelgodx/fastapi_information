@@ -100,7 +100,23 @@ class AsyncParser:
                         'recovered': recovered,
                         'sick_now': sick_now}
             except AttributeError:
-                return {'status': 'unknown', 'message': 'Error, perhaps the country is missing', 'last_updated_date': 'no data'}
+                return {'status': 'unknown', 'message': 'Error, perhaps the country is missing',
+                        'last_updated_date': 'no data'}
+
+    async def parce_current_currency(self, first_currency: str, second_currency: str):
+        url = f'https://www.currency.me.uk/convert/{first_currency}/{second_currency}'
+        async with aiohttp.ClientSession() as session:
+            html = await self.fetch(session, url)
+            if not html:
+                return {'status': 'unknown', 'message': 'Error'}
+            soup = BeautifulSoup(html, 'html.parser')
+            values = soup.find_all('span', class_='mini ccyrate')
+            data = {}
+            for el in values:
+                first = ' '.join(el.text.split()[:2])
+                second = ' '.join(el.text.split()[3:])
+                data[first] = second
+            return data
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
