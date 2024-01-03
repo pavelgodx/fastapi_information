@@ -158,6 +158,7 @@ class AsyncParser:
             driver.get(link)
             product_divs = driver.find_elements(By.CLASS_NAME, 'product.m-t-15')
             data = {}
+
             for div in product_divs:
                 product = div.get_attribute('outerHTML')
                 soup = BeautifulSoup(product, 'html.parser')

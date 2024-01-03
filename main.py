@@ -71,6 +71,7 @@ async def get_current_currency(first_currency: str, second_currency: str):
     new_data = await tool_object.parce_current_currency(first_currency.lower(), second_currency.lower())
     return new_data
 
+
 @app.get('/kopeyka/stock', description=CURRENCY_LIST_TOPIC, tags=TAGS[2], summary=SUMMARY[4])
 async def get_stock_kopeyka():
     await tool_object.parse_stock_kopeyka()

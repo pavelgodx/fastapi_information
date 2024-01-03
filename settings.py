@@ -42,6 +42,7 @@ SUMMARY = ('Get world COVID info',
            'Get current exchange rate',
            'Get current shares in ATB',)
 
+
 LINKS_KOPEYKA = {
     'alcohol': 'https://my.kopeyka.com.ua/shares/category/9?name=%D0%90%D0%BB%D0%BA%D0%BE%D0%B3%D0%BE%D0%BB%D1%8C',
     'Grocer': 'https://my.kopeyka.com.ua/shares/category/21?name=%D0%91%D0%B0%D0%BA%D0%B0%D0%BB%D0%B5%D1%8F',
