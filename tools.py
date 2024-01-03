@@ -103,6 +103,23 @@ class AsyncParser:
                 return {'status': 'unknown', 'message': 'Error, perhaps the country is missing',
                         'last_updated_date': 'no data'}
 
+    async def parce_currency_list(self):
+        url = f'https://www.currency.me.uk/'
+        async with aiohttp.ClientSession() as session:
+            html = await self.fetch(session, url)
+            soup = BeautifulSoup(html, 'html.parser')
+            main_block = soup.find('div', class_='content-inner')
+            li_tags = main_block.find_all('li')
+            data = {}
+            for el in li_tags:
+                country = el.text
+                a_tag = el.find('a')
+                if a_tag:
+                    currency = a_tag['title']
+                    data[country] = currency
+
+            await self.write_to_json('data/currencies/list_of_countries.json', data)
+
     async def parce_current_currency(self, first_currency: str, second_currency: str):
         url = f'https://www.currency.me.uk/convert/{first_currency}/{second_currency}'
         async with aiohttp.ClientSession() as session:
@@ -113,9 +130,10 @@ class AsyncParser:
             values = soup.find_all('span', class_='mini ccyrate')
             data = {}
             for el in values:
-                first = ' '.join(el.text.split()[:2])
-                second = ' '.join(el.text.split()[3:])
-                data[first] = second
+                if 'first_value' not in data:
+                    data['first_value'] = el.text
+                else:
+                    data['second_value'] = el.text
             return data
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
