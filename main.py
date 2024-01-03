@@ -3,9 +3,9 @@ import logging
 from fastapi import FastAPI, HTTPException
 
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
-from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC, MAIN_DESCRIPTION, TAGS, SUMMARY, GET_CURRENCY_TOPIC, \
-    CURRENCY_LIST_TOPIC, LINKS_KOPEYKA
-from models import WorldCovidModel, CurrencyModel
+from settings import (GLOBAL_COVID_DESCRIPTION, COUNTRY_COVID_DESCRIPTION, MAIN_DESCRIPTION, TAGS, SUMMARY,
+                      GET_CURRENCY_TOPIC, CURRENCY_LIST_TOPIC, LINKS_KOPEYKA, KOPEYKA_STOCK_TOPIC)
+from models import WorldCovidModel, CurrencyModel, PromotionsKopeika
 
 app = FastAPI(title='PashtetAPI', version='2.2.8', description=MAIN_DESCRIPTION)
 
@@ -13,7 +13,7 @@ global_covid_url = 'https://www.worldometers.info/coronavirus/'
 tool_object = AsyncParser(global_covid_url)
 
 
-@app.get('/world/covid', description=GLOBAL_COVID_TOPIC[0], response_model=WorldCovidModel, tags=TAGS[0],
+@app.get('/world/covid', description=GLOBAL_COVID_DESCRIPTION, response_model=WorldCovidModel, tags=TAGS[0],
          summary=SUMMARY[0])
 async def get_world_covid():
     try:
@@ -34,7 +34,7 @@ async def get_world_covid():
             return data
 
 
-@app.get('/world/covid/{country}', description=COUNTRY_COVID_TOPIC, tags=TAGS[0], summary=SUMMARY[1])
+@app.get('/world/covid/{country}', description=COUNTRY_COVID_DESCRIPTION, tags=TAGS[0], summary=SUMMARY[1])
 async def get_covid_info_by_country(country: str):
     json_path = f'data/covid/{country}.json'
     try:
@@ -72,11 +72,12 @@ async def get_current_currency(first_currency: str, second_currency: str):
     return new_data
 
 
-@app.get('/kopeyka/stock/{category}', description=CURRENCY_LIST_TOPIC, tags=TAGS[2], summary=SUMMARY[4])
+@app.get('/kopeyka/stock/{category}', description=KOPEYKA_STOCK_TOPIC, tags=TAGS[2], summary=SUMMARY[4],
+         response_model=PromotionsKopeika)
 async def get_stock_kopeyka(category: str):
     # await tool_object.parse_stock_kopeyka()   ---> get actually info about stocks
+    category = category.lower()
     if category in LINKS_KOPEYKA.keys():
         data = await get_info_from_json(f'data/goods/{category}.json')
         return data
-    return 'unknown'
-
+    return 'unknown'    # TODO: +

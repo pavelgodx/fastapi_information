@@ -23,9 +23,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 
-
-
-
 class AsyncParser:
     def __init__(self, url: str):
         self.url = url
@@ -150,7 +147,7 @@ class AsyncParser:
                     data['second_value'] = el.text
             return data
 
-    async def parse_stock_kopeyka(self):    # TODO: добавить исключения и рефакторинг
+    async def parse_stock_kopeyka(self):  # TODO: добавить исключения и рефакторинг
         for name, link in LINKS_KOPEYKA.items():
             options = Options()
             # options.page_load_strategy = 'eager'  # Не ждать полной загрузки страницы (DOMContentLoaded)

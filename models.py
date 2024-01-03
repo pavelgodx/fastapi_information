@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Dict
 
 
 class WorldCovidModel(BaseModel):
@@ -12,3 +13,16 @@ class WorldCovidModel(BaseModel):
 class CurrencyModel(BaseModel):
     first_value: str = Field(example='1 USD = 38.1502 UAH')
     second_value: str = Field(example='1 UAH = 0.0262 USD')
+
+
+class PromotionsKopeika(BaseModel):
+    TheProductName: Dict[str, str] = Field(..., example={
+        'img_url': 'example.com/somepicture.png',
+        'old_price': '10.7грн.',
+        'new_price': '8.50грн.'
+    })
+    TheProductName2: Dict[str, str] = Field(..., example={
+        'img_url': 'example.com/somepicture2.png',
+        'old_price': '25.12грн.',
+        'new_price': '12.25грн.'
+    })

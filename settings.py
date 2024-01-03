@@ -1,29 +1,4 @@
-GLOBAL_COVID_TOPIC = (
-    'Get information about the number of people affected by COVID 19. Data is updated every 3 hours.',
-)
-
-COUNTRY_COVID_TOPIC = """
-We receive information about COVID-19 for the specified country. Supported countries:
-- Ukraine
-- USA
-- Canada
-- Germany
-- France
-- Russia
-
-"""
-
-CURRENCY_LIST_TOPIC = """
-Получи весь список данных
-"""
-
-GET_CURRENCY_TOPIC = """
-Ееее бой!
-"""
-
-ATB_STOCK_TOPIC = """
-Получи все акции товаров
-"""
+# ------------------------------ MAIN INFO ------------------------------ #
 
 MAIN_DESCRIPTION = ('This API will help you obtain up-to-date information from various sources. '
                     'Repository in [GitHub](https://github.com/pavelgodx/fastapi_information). '
@@ -40,7 +15,69 @@ SUMMARY = ('Get world COVID info',
            'Get COVID info by country',
            'Get list currencies',
            'Get current exchange rate',
-           'Get current shares in Kopeyka',)
+           'Get current promotions in Kopeyka',)
+
+# ------------------------------ COVID ------------------------------ #
+
+GLOBAL_COVID_DESCRIPTION = """
+### Get information about the number of people affected by COVID 19. Data is updated every ~3 hours.
+
+- Total cases
+- Deaths
+- Recovered
+"""
+
+COUNTRY_COVID_DESCRIPTION = """
+### We receive information about COVID-19 for the specified country. Supported countries:
+- Ukraine
+- USA
+- Canada
+- Germany
+- France
+- Russia
+"""
+
+# ------------------------------ CURRENCY ------------------------------ #
+
+
+CURRENCY_LIST_TOPIC = """
+### Data about some countries and their currencies in XXX format (UAH, USD, etc.)
+"""
+
+GET_CURRENCY_TOPIC = """
+### Current data on average currency exchange rates.
+"""
+
+# ------------------------------ PROMOTIONS  ------------------------------ #
+
+
+KOPEYKA_STOCK_TOPIC = """
+<h2>Categories:</h2>
+<ul>
+    <li>Alcohol</li>
+    <li>Groceries</li>
+    <li>Hygiene</li>
+    <li>For Kids</li>
+    <li>Freezing</li>
+    <li>Yoghurts</li>
+    <li>Sausages</li>
+    <li>Conservation</li>
+    <li>Cooking</li>
+    <li>Dairy</li>
+    <li>Seafood</li>
+    <li>Ice Cream</li>
+    <li>Meat Products</li>
+    <li>Cookies</li>
+    <li>Dishes</li>
+    <li>Sweets</li>
+    <li>Snacks</li>
+    <li>Juices & Water</li>
+    <li>Sauces</li>
+    <li>Cheese</li>
+    <li>Cottage Cheese</li>
+    <li>Chemistry</li>
+</ul>
+"""
 
 LINKS_KOPEYKA = {
     'alcohol': 'https://my.kopeyka.com.ua/shares/category/9?name=%D0%90%D0%BB%D0%BA%D0%BE%D0%B3%D0%BE%D0%BB%D1%8C',
@@ -66,5 +103,4 @@ LINKS_KOPEYKA = {
     'cottage_cheese': 'https://my.kopeyka.com.ua/shares/category/26?name=%D0%A2%D0%B2%D0%BE%D1%80%D0%BE%D0%B3',
     'chemistry': 'https://my.kopeyka.com.ua/shares/category/10?name=%D0%A5%D0%B8%D0%BC%D0%B8%D1%8F',
     'tea_coffee': 'https://my.kopeyka.com.ua/shares/category/18?name=%D0%A7%D0%B0%D0%B9%20%D0%9A%D0%BE%D1%84%D0%B5'
-
 }

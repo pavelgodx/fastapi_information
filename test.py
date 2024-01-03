@@ -11,6 +11,7 @@ async def test_parce_covid_by_country():
     assert 'status' in result
     assert result['status'] == 200
 
+
 @pytest.mark.asyncio
 async def test_parse_stock_kopeyka():
     parser = AsyncParser('some_url')
