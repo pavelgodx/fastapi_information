@@ -1,0 +1,9 @@
+{
+    "status": 200,
+    "last_updated_date": "3.01.2024",
+    "population": 46719000,
+    "total_infections": 13914811,
+    "deaths": 121760,
+    "recovered": 13762417,
+    "sick_now": 30634
+}
