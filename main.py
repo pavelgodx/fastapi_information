@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
 from settings import GLOBAL_COVID_TOPIC, COUNTRY_COVID_TOPIC, MAIN_DESCRIPTION, TAGS, SUMMARY, GET_CURRENCY_TOPIC, \
-    CURRENCY_LIST_TOPIC
+    CURRENCY_LIST_TOPIC, LINKS_KOPEYKA
 from models import WorldCovidModel, CurrencyModel
 
 app = FastAPI(title='PashtetAPI', version='2.2.8', description=MAIN_DESCRIPTION)
@@ -72,6 +72,11 @@ async def get_current_currency(first_currency: str, second_currency: str):
     return new_data
 
 
-@app.get('/kopeyka/stock', description=CURRENCY_LIST_TOPIC, tags=TAGS[2], summary=SUMMARY[4])
-async def get_stock_kopeyka():
-    await tool_object.parse_stock_kopeyka()
+@app.get('/kopeyka/stock/{category}', description=CURRENCY_LIST_TOPIC, tags=TAGS[2], summary=SUMMARY[4])
+async def get_stock_kopeyka(category: str):
+    # await tool_object.parse_stock_kopeyka()   ---> get actually info about stocks
+    if category in LINKS_KOPEYKA.keys():
+        data = await get_info_from_json(f'data/goods/{category}.json')
+        return data
+    return 'unknown'
+
