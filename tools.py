@@ -10,6 +10,17 @@ from pathlib import Path
 import json
 from datetime import datetime, timedelta
 import re
+from settings import LINKS_KOPEYKA
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 
 class AsyncParser:
@@ -94,7 +105,7 @@ class AsyncParser:
 
                 return {'status': 200,
                         'last_updated_date': last_updated_date,
-                        'population': population,
+                        'population': population * 1000,
                         'total_infections': total_infections,
                         'deaths': deaths,
                         'recovered': recovered,
@@ -135,6 +146,39 @@ class AsyncParser:
                 else:
                     data['second_value'] = el.text
             return data
+
+    async def parse_stock_kopeyka(self):
+        for name, link in LINKS_KOPEYKA.items():
+            options = Options()
+            # options.page_load_strategy = 'eager'  # Не ждать полной загрузки страницы (DOMContentLoaded)
+
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=options)
+
+            driver.get(link)
+            product_divs = driver.find_elements(By.CLASS_NAME, 'product.m-t-15')
+            data = {}
+            for div in product_divs:
+                product = div.get_attribute('outerHTML')
+                soup = BeautifulSoup(product, 'html.parser')
+                prices = soup.find('div', class_='product-price')
+                try:
+                    new_price = prices.find('div', class_='product-price-new').text.strip()
+                    old_price = prices.find('div', class_='product-price-old').text.strip()
+                except Exception as e:
+                    new_price = None
+                    old_price = None
+
+                img_element = soup.find('div', class_='product-img').find('img')
+                img_url = img_element['src']
+                img_title = img_element['title']
+
+                data[img_title] = {'img_url': img_url, 'old_price': old_price, 'new_price': new_price}
+
+            file_name = f'data/goods/{name}.json'
+            await self.write_to_json(file_name, data)
+
+            driver.quit()
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
