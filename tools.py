@@ -1,25 +1,17 @@
-import time
-
 import aiohttp
-from bs4 import BeautifulSoup
-import asyncio
 from typing import Dict, Union
 from fake_useragent import UserAgent
-from datetime import datetime
 from pathlib import Path
 import json
 from datetime import datetime, timedelta
 import re
-from settings import LINKS_KOPEYKA
+from settings import LINKS_KOPEYKA, PRODUCT_NAMES
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 
@@ -37,7 +29,7 @@ class AsyncParser:
         Returns:
             Dict[str, str]: dictionary of configuration, where saved information about "user-agent"
         """
-        return {'user-agent': self.ua.random}
+        return {'User-Agent': self.ua.random}
 
     async def fetch(self, session: aiohttp.ClientSession, url: str) -> str:
         headers = self.get_config()
@@ -55,6 +47,11 @@ class AsyncParser:
             return text
         except ValueError:
             return 'no data'
+
+    async def get_current_date(self):
+        current_date = datetime.now()
+        formatted_date = current_date.strftime('%d.%m.%Y')
+        return formatted_date
 
     async def parse_covid_global(self) -> Dict[str, Union[str, int]]:
         async with aiohttp.ClientSession() as session:
@@ -147,39 +144,49 @@ class AsyncParser:
                     data['second_value'] = el.text
             return data
 
-    async def parse_stock_kopeyka(self):  # TODO: добавить исключения и рефакторинг
-        for name, link in LINKS_KOPEYKA.items():
-            options = Options()
-            # options.page_load_strategy = 'eager'  # Не ждать полной загрузки страницы (DOMContentLoaded)
+    async def parce_promotions_atb_store(self):
+        main_url = 'https://www.atbmarket.com'
+        cur_date = await self.get_current_date()
+        data = {'last_updated_date': cur_date}
+        id_product = 1
+        num_pages = 5
 
-            service = Service(ChromeDriverManager().install())
-            driver = webdriver.Chrome(service=service, options=options)
+        async with aiohttp.ClientSession() as session:
+            for x in range(1, num_pages + 1):
+                url = f'https://www.atbmarket.com/ru/promo/economy?page={x}'
+                html = await self.fetch(session, url)
 
-            driver.get(link)
-            product_divs = driver.find_elements(By.CLASS_NAME, 'product.m-t-15')
-            data = {}
+                soup = BeautifulSoup(html, 'html.parser')
+                main_div = soup.find('div', class_='catalog-list')
 
-            for div in product_divs:
-                product = div.get_attribute('outerHTML')
-                soup = BeautifulSoup(product, 'html.parser')
-                prices = soup.find('div', class_='product-price')
-                try:
-                    new_price = prices.find('div', class_='product-price-new').text.strip()
-                    old_price = prices.find('div', class_='product-price-old').text.strip()
-                except Exception as e:
-                    new_price = None
-                    old_price = None
+                if not main_div:
+                    continue
 
-                img_element = soup.find('div', class_='product-img').find('img')
-                img_url = img_element['src']
-                img_title = img_element['title']
+                article_tags = main_div.find_all('article')
 
-                data[img_title] = {'img_url': img_url, 'old_price': old_price, 'new_price': new_price}
+                for product in article_tags:
+                    if 'banner-item' in product['class']:
+                        continue
 
-            file_name = f'data/goods/{name}.json'
-            await self.write_to_json(file_name, data)
+                    try:
+                        block = product.find('div', class_='catalog-item__info')
+                        if block:
+                            product_name = block.find('a').text.strip()
+                            src_picture_url = product.find('img')['src']
+                            new_cost = product.find('data', class_='product-price__top').text.strip().split()[0]
+                            old_cost = product.find('data', class_='product-price__bottom').text.strip()
+                            url_by_product = main_url + product.find('a', class_='catalog-item__photo-link')['href']
+                            data[id_product] = {
+                                'product_name': product_name, 'new_cost': new_cost, 'old_cost': old_cost,
+                                'url_by_product': url_by_product, 'src_picture_url': src_picture_url}
+                            id_product += 1
+                    except AttributeError as e:
+                        print(f'Attribute Error: {e}')
+                    except Exception as e:
+                        print(f'Unexpected Error: {e}')
 
-            driver.quit()
+        await self.write_to_json('data/products_atb_promotions.json', data)
+        return data
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
         with open(filename, 'w', encoding='utf-8') as file:
@@ -188,15 +195,6 @@ class AsyncParser:
     async def run(self) -> None:
         data_global_covid = await self.parse_covid_global()
         await self.write_to_json(filename='data/covid/general_info.json', data=data_global_covid)
-
-
-async def main():  # TODO: убрать
-    global_covid_url = 'https://www.worldometers.info/coronavirus/'
-    global_covid_object = AsyncParser(global_covid_url)
-    await global_covid_object.run()
-
-
-# asyncio.run(main()) # TODO: доделать
 
 
 # ---------- OTHER TOOLS ---------- #

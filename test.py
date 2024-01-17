@@ -13,6 +13,6 @@ async def test_parce_covid_by_country():
 
 
 @pytest.mark.asyncio
-async def test_parse_stock_kopeyka():
+async def test_parce_promotions_atb_store():
     parser = AsyncParser('some_url')
-    await parser.parse_stock_kopeyka()
+    await parser.parce_promotions_atb_store()

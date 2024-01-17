@@ -1,11 +1,9 @@
 import logging
-
 from fastapi import FastAPI, HTTPException
-
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
 from settings import (GLOBAL_COVID_DESCRIPTION, COUNTRY_COVID_DESCRIPTION, MAIN_DESCRIPTION, TAGS, SUMMARY,
                       GET_CURRENCY_TOPIC, CURRENCY_LIST_TOPIC, LINKS_KOPEYKA, KOPEYKA_STOCK_TOPIC)
-from models import WorldCovidModel, CurrencyModel, PromotionsKopeika
+from models import WorldCovidModel, CurrencyModel
 
 app = FastAPI(title='PashtetAPI', version='2.2.8', description=MAIN_DESCRIPTION)
 
@@ -72,12 +70,9 @@ async def get_current_currency(first_currency: str, second_currency: str):
     return new_data
 
 
-@app.get('/kopeyka/stock/{category}', description=KOPEYKA_STOCK_TOPIC, tags=TAGS[2], summary=SUMMARY[4],
-         response_model=PromotionsKopeika)
-async def get_stock_kopeyka(category: str):
-    # await tool_object.parse_stock_kopeyka()   ---> get actually info about stocks
-    category = category.lower()
-    if category in LINKS_KOPEYKA.keys():
-        data = await get_info_from_json(f'data/goods/{category}.json')
-        return data
-    return 'unknown'    # TODO: +
+@app.get('/atb/promotions', description=KOPEYKA_STOCK_TOPIC, tags=TAGS[2],
+         summary=SUMMARY[4])  # TODO: добавить модель
+async def get_promotions_atb_store():
+    data = await tool_object.parce_promotions_atb_store()
+    return data
+

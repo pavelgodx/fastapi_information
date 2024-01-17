@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field
-from typing import Dict
+from pydantic import BaseModel, Field, HttpUrl
+from typing import Dict, List
 
 
 class WorldCovidModel(BaseModel):
@@ -15,14 +15,11 @@ class CurrencyModel(BaseModel):
     second_value: str = Field(example='1 UAH = 0.0262 USD')
 
 
-class PromotionsKopeika(BaseModel):
-    TheProductName: Dict[str, str] = Field(..., example={
-        'img_url': 'example.com/somepicture.png',
-        'old_price': '10.7грн.',
-        'new_price': '8.50грн.'
-    })
-    TheProductName2: Dict[str, str] = Field(..., example={
-        'img_url': 'example.com/somepicture2.png',
-        'old_price': '25.12грн.',
-        'new_price': '12.25грн.'
-    })
+# class ProductDetails(BaseModel):
+#     img_url: HttpUrl = Field(..., example="https://example.com/image.png")
+#     old_price: str = Field(..., example="3948uah")
+#     new_price: str = Field(..., example="3222uah")
+#
+# class ProductsModel(ProductDetails):
+#     products: List[str, img_url]
+

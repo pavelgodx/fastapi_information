@@ -104,3 +104,29 @@ LINKS_KOPEYKA = {
     'chemistry': 'https://my.kopeyka.com.ua/shares/category/10?name=%D0%A5%D0%B8%D0%BC%D0%B8%D1%8F',
     'tea_coffee': 'https://my.kopeyka.com.ua/shares/category/18?name=%D0%A7%D0%B0%D0%B9%20%D0%9A%D0%BE%D1%84%D0%B5'
 }
+
+PRODUCT_NAMES = {
+    'алкоголь': 'alcohol',
+    'бакалея': 'grocer',
+    'гигиена': 'hygiene',
+    'для детей': 'for_kids',
+    'заморозка': 'freezing',
+    'йогурты': 'yoghurts',
+    'колбасы': 'sausages',
+    'консервация': 'conservation',
+    'кулинария': 'cooking',
+    'молоко яйца': 'dairy',
+    'морепродукты': 'seafood',
+    'мороженное': 'ice_cream',
+    'мясные изделия': 'meat_products',
+    'печенье': 'cookies',
+    'посуда': 'dishes',
+    'сладости': 'sweets',
+    'снеки': 'snacks',
+    'соки воды': 'juices_water',
+    'соусы': 'sauces',
+    'сыр': 'cheese',
+    'творог': 'cottage_cheese',
+    'химия': 'chemistry',
+    'чай кофе': 'tea_coffee'
+}
