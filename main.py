@@ -2,7 +2,7 @@ import logging
 from fastapi import FastAPI, HTTPException
 from tools import get_info_from_json, check_elapsed_time, AsyncParser, check_next_day
 from settings import (GLOBAL_COVID_DESCRIPTION, COUNTRY_COVID_DESCRIPTION, MAIN_DESCRIPTION, TAGS, SUMMARY,
-                      GET_CURRENCY_TOPIC, CURRENCY_LIST_TOPIC, LINKS_KOPEYKA, KOPEYKA_STOCK_TOPIC)
+                      GET_CURRENCY_TOPIC, CURRENCY_LIST_TOPIC)
 from models import WorldCovidModel, CurrencyModel
 
 app = FastAPI(title='PashtetAPI', version='2.2.8', description=MAIN_DESCRIPTION)
@@ -70,9 +70,12 @@ async def get_current_currency(first_currency: str, second_currency: str):
     return new_data
 
 
-@app.get('/atb/promotions', description=KOPEYKA_STOCK_TOPIC, tags=TAGS[2],
-         summary=SUMMARY[4])  # TODO: добавить модель
+@app.get('/atb/promotions')  # TODO: добавить модель
 async def get_promotions_atb_store():
-    data = await tool_object.parce_promotions_atb_store()
-    return data
+    json_path = 'data/goods/products_atb_promotions.json'
+    data = await get_info_from_json(json_path)
+    if await check_next_day(data['last_updated_date']):
+        data = await tool_object.parce_promotions_atb_store()  # TODO: MAKE EXCEPTIONS!
+        await tool_object.write_to_json(json_path, data)
 
+    return data

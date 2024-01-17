@@ -5,7 +5,6 @@ from pathlib import Path
 import json
 from datetime import datetime, timedelta
 import re
-from settings import LINKS_KOPEYKA, PRODUCT_NAMES
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -185,7 +184,7 @@ class AsyncParser:
                     except Exception as e:
                         print(f'Unexpected Error: {e}')
 
-        await self.write_to_json('data/products_atb_promotions.json', data)
+        await self.write_to_json('data/goods/products_atb_promotions.json', data)
         return data
 
     async def write_to_json(self, filename: Union[str, Path], data: Union[str, dict, tuple, list]):
@@ -213,6 +212,12 @@ async def check_elapsed_time(last_updated: str):
 
 
 async def check_next_day(last_updated_str: str):
+    """
+    Returns true if the current day is greater than the day passed in the argument
+
+    :param last_updated_str:
+    :return:
+    """
     try:
         last_updated = datetime.strptime(last_updated_str, '%d.%m.%Y').date()
         current_date = datetime.now().date()
